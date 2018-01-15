@@ -1,6 +1,14 @@
-# ramukaka
-Chatbot in use at Agility Roots - "Robotic Automated Monotony Undoer"
+# RAMUkaka
 
+<img src="https://raw.githubusercontent.com/agilityroots/common/master/images/ramukaka_logo.png" alt="Drawing" style="width: 200px;"/>
+
+Ramukaka, stylized as `RAMUkaka`, is the affectionate name for the chatbot in use at Agility Roots.
+
+
+**About the name:**
+
+* `RAMU` stands for Robotic Automated Monotony Undoer.
+* `kaka` is an affectionate patronymic, usually for an elderly person or sometimes, a helper that has been with you for many years.
 
 
 ## How to run
