@@ -1,0 +1,9 @@
+[Core]
+module = aws
+name = aws
+
+[Documentation]
+description = Adapter for AWS control
+
+[Python]
+version = 3

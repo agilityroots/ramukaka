@@ -1,0 +1,20 @@
+[[source]]
+
+url = "http://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+
+[dev-packages]
+
+
+
+[packages]
+
+errbot = "*"
+slackclient = "*"
+apache-libcloud = "*"
+
+[requires]
+
+python_version = "3.5"
