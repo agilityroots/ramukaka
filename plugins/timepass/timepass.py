@@ -1,44 +1,27 @@
-from errbot import BotPlugin, botcmd, cmdfilter
-import spacy
+import random
+from errbot import botcmd, BotPlugin, botmatch
 class TimePass(BotPlugin):
 
-
-    def is_similar(input):
-        return True
-
-    # http://errbot.io/en/latest/errbot.html#errbot.cmdfilter
-    @cmdfilter
-    def understand_cmd(self, msg, cmd, args, dry_run):
-        """
-        :param msg: The original chat message.
-        :param cmd: The command name itself.
-        :param args: Arguments passed to the command.
-        :param dry_run: True when this is a dry-run.
-           Dry-runs are performed by certain commands (such as !help)
-           to check whether a user is allowed to perform that command
-           if they were to issue it. If dry_run is True then the plugin
-           shouldn't actually do anything beyond returning whether the
-           command is authorized or not.
-           """
-        # Otherwise pass data through to the (potential) next filter:
-        self.log.debug("************* Message: " + str(msg) + ", command: " + str(cmd))
-        return msg, cmd, args
-
     @botcmd
-    def get_me_some_tea(self, msg, args):
+    def tryme(self, msg, _):
+        """Start to guess a number !"""
+        msg.ctx['tries'] = 10
+        msg.ctx['to_guess'] = random.randint(0,99)
+        return 'Guess a number between 0 and 99 !'
 
-        """
-        gives you tea
-        """
-        return """
-        :tea:
-        """
-    @botcmd
-    def get_me_some_coffee(self, msg, args):
-        """
-        gives you coffee
-        """
+    @botmatch(r'^\d{1,2}$', flow_only=True)
+    def guessing(self, msg, match):
+        guess = int(match.string)
+        to_guess = msg.ctx['to_guess']
+        if guess == to_guess:
+            msg.ctx['tries'] = 0
+            return 'You won !'
 
-        return """
-        :coffee:
-        """
+        msg.ctx['tries'] -= 1
+        if msg.ctx['tries'] == 0:
+            return 'No more tries, you lost!'
+
+        if guess < to_guess:
+            return 'More ! %d tries left' % msg.ctx['tries']
+
+        return 'Less! %d tries left' % msg.ctx['tries']
