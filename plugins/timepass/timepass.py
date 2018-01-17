@@ -1,50 +1,31 @@
-import random
+import random,spacy
 from errbot import botcmd, BotPlugin, botmatch
 class TimePass(BotPlugin):
 
-    # example flow copied from
-    # https://github.com/errbotio/err-guess-a-number
-    @botcmd
-    def tryme(self, msg, _):
-        """Start to guess a number !"""
-        msg.ctx['tries'] = 10
-        msg.ctx['to_guess'] = random.randint(0,99)
-        return 'Guess a number between 0 and 99 !'
+    def get_intent(self,orig_msg):
+        model = 'sm'
+        nlp = spacy.load('en_core_web_' + model)
+        coffee = nlp('coffee')
+        tea = nlp('tea')
+        orig = nlp(orig_msg)
+        cm = orig.similarity(coffee)
+        ct = orig.similarity(tea)
+        self.log.debug("NLP MEASURE for {0}: coffee {1}, tea {2}".format(orig_msg,cm,ct))
+        if (cm > ct):
+            return 'coffee'
+        else:
+            return 'tea'
 
-    @botmatch(r'^\d{1,2}$', flow_only=True)
-    def guessing(self, msg, match):
-        guess = int(match.string)
-        to_guess = msg.ctx['to_guess']
-        if guess == to_guess:
-            msg.ctx['tries'] = 0
-            return 'You won !'
-
-        msg.ctx['tries'] -= 1
-        if msg.ctx['tries'] == 0:
-            return 'No more tries, you lost!'
-
-        if guess < to_guess:
-            return 'More ! %d tries left' % msg.ctx['tries']
-
-        return 'Less! %d tries left' % msg.ctx['tries']
-
-    # trying to replicate same flow with NLP
-
-    @botcmd
-    def timepass(self,msg,_):
-        """Starts the Timepass Flow."""
-        self.log.debug(str(msg))
-        msg.ctx['should_end'] = False
-        return """Tell Me What To Do :+1:"""
-
-    @botmatch(r'^.*coffee.*$', flow_only=True)
-    def timepassing_coffee(self,msg,match):
-        msg.ctx['should_end'] = False
+    @botmatch(r'^[a-zA-Z\s]+$',hidden=True)
+    def parse_input(self,msg,_):
         msg.ctx['orig_msg'] = str(msg)
-        return """Here is some :coffee: <br> your input: {0} match: {1}""".format(msg,match.string)
+        msg.ctx['intent'] = self.get_intent(str(msg))
+        self.log.debug('>>>>>>>>>>>>>>>> parsed orig msg {0} for an intent: {1} '.format(msg.ctx['orig_msg'],msg.ctx['intent']))
 
-    @botmatch(r'^.*tea.*$', flow_only=True)
-    def timepassing_tea(self,msg,match):
-        msg.ctx['should_end'] = False
-        msg.ctx['orig_msg'] = str(msg)
-        return """Here is some :tea: <br> your input: {0} match: {1}""".format(msg,match.string)
+    @botcmd(flow_only=True)
+    def timepassing_coffee(self,msg,_):
+        return """You asked for {0}. Here is some :coffee: <br>""".format(msg.ctx['intent'])
+
+    @botcmd(flow_only=True)
+    def timepassing_tea(self,msg,_):
+        return """You asked for {0}. Here is some :tea: <br>""".format(msg.ctx['intent'])

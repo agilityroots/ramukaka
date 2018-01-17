@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "1262c3411098a97188f03c78f49a3da6b8b71ff8ae66e08b747ef15196767314"
+            "sha256": "fad7c1e4825a6422e26c5912283210f6f4410305cd2bfb816feaff6bf410e4f2"
         },
         "host-environment-markers": {
             "implementation_name": "cpython",
@@ -18,7 +18,9 @@
         },
         "pipfile-spec": 6,
         "requires": {
-            "python_version": "3.5"
+            "platform": "Linux",
+            "python_full_version": "3.5.2",
+            "python_requires": "3.5.2"
         },
         "sources": [
             {
@@ -198,6 +200,9 @@
                 "sha256:6eb9504abafb91cb67ed9dc3d3289a3ccc438533b460eccbf77e36c5323100f4"
             ],
             "version": "==1.15.0"
+        },
+        "ee2e623": {
+            "file": "https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-2.0.0/en_core_web_sm-2.0.0.tar.gz"
         },
         "enum34": {
             "hashes": [
