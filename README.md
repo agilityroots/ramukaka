@@ -1,21 +1,59 @@
 # RAMUkaka
 
-<img src="https://raw.githubusercontent.com/agilityroots/common/master/images/ramukaka_logo.png" alt="Drawing" style="width: 200px;"/>
+<img src="https://raw.githubusercontent.com/agilityroots/common/master/images/ramukaka_logo.png" alt="Drawing" style="width: 100px;"/>
 
 Ramukaka, stylized as `RAMUkaka`, is the affectionate name for the chatbot in use at Agility Roots.
-
 
 **About the name:**
 
 * `RAMU` stands for Robotic Automated Monotony Undoer.
-* `kaka` is an affectionate patronymic, usually for an elderly person or sometimes, a helper that has been with you for many years.
-
+* `kaka` is an Indian vernacular term used for an [elderly uncle](http://www.shabdkosh.com/translate/%E0%A4%95%E0%A4%BE%E0%A4%95%E0%A4%BE/%E0%A4%95%E0%A4%BE%E0%A4%95%E0%A4%BE-meaning-in-Hindi-English) or sometimes, a respected helper.
 
 ## How to run
 
-### Initialize
+### 1. Satisfy Prerequisites
 
-* Note: Errbot requires Python 3 so make sure you have it. [Python 3 can coexist with Python 2.](https://askubuntu.com/a/17631)
+| What? | Version? | Why? |
+|-|-|
+| OS | Ubuntu 16.04 64-bit (_preferred_) | `RAMUkaka` has been tested only on Ubuntu. |
+| Python | 3+ (_3.5.2 recommended_) | `RAMUkaka` uses [Errbot](http://errbot.io/en/latest/) as its bot framework, which supports Python 3. |
+| `pipenv` | Latest ([Install Instructions](https://docs.pipenv.org/#install-pipenv-today)) | [Errbot installation](http://errbot.io/en/latest/user_guide/setup.html#installation) is recommended using a `virtualenv`, so `pipenv` was the natural option. |
+
+**Note**
+
+* In case you're wondering, [Python 3 can coexist with Python 2.](https://askubuntu.com/a/17631)
+
+
+### 2. Configure Connectivity
+
+`RAMUkaka` can connect to the following services, so you need accounts you can use.
+
+| What? | What needs to be done? |
+|-|-|
+| Slack | Follow the instructions for [creating a Bot token for Errbot](http://errbot.io/en/latest/user_guide/configuration/slack.html). |
+| AWS | Create an AWS account. It is _highly recommended_ that you create an IAM user in AWS that the Bot can use. |
+
+### 3. Set environment
+
+`RAMUkaka` reads the following configuration from Environment Variables.
+
+**AWS Connectivity**
+
+```
+ERRBOT_AWS_KEYPAIR_NAME # an AWS keypair
+ERRBOT_AWS_DEFAULT_REGION # AWS region where RAMUkaka will work
+ERRBOT_AWS_SECRET_KEY # AWS secret key
+ERRBOT_AWS_ACCESS_KEY # AWS access key
+ERRBOT_AWS_ACCOUNT_ID # account ID for AWS
+```
+
+**Slack Connectivity**
+
+`ERRBOT_SLACK_TOKEN # Slack Token`
+
+
+### 4. Initialize
+
 * This directory is a `pipenv` environment so `cd` to this directory and run:
 
 ```
