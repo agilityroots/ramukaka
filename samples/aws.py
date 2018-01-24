@@ -67,7 +67,7 @@ def getSize(size_id):
 
 def getNode(node_name):
     nodes = driver.list_nodes()
-    node = [i for i in nodes if i.name == node_name][0]
+    node = [i for i in nodes if (i.name == node_name and i.state != 'terminated')][0]
     return node
 
 def getLocation(location_id):
@@ -78,30 +78,46 @@ def getLocation(location_id):
 
 def create():
     if action_needed("create"):
+        print("creating {0}".format(MY_NODE_NAME))
         node = driver.create_node(
                 name=MY_NODE_NAME,
                 size=getSize(MY_SIZE),
                 image=getImage(MY_IMAGE_ID))
+        print("waiting for node to be ready...")
         driver.wait_until_running([node])
+    else:
+        print("matching node already created, no action.")
 
 def action_needed(action):
-    for n in driver.list_nodes():
+    nodes = driver.list_nodes()
+    for n in nodes:
         print("node: {0}, image: {1}, ip: {2}".format(n.name,n.image,n.public_ips))
-        if (n.name == MY_NODE_NAME) or (n.image.id == MY_IMAGE_ID):
+        if ((n.name == MY_NODE_NAME) or (n.image.id == MY_IMAGE_ID)) and (n.state == 'running'):
             if (action == 'create'):
                 return False
             elif (action == 'delete'):
                 return True
             else: raise Exception("unknown: {0}".format(action))
 
+    # if it reached here it means matching nodes are not found and create is needed..
+    if (action == 'create'):
+        return True
+    elif (action == 'delete'):
+        return False
+
 def list_instances():
+    """
+    Lists instances regardless of their state.
+    Terminated instances can be visible in the list for a short while.
+    """
     for n in driver.list_nodes():
-        print("node: {0}, image: {1}, ip: {2}".format(n.name,n.image,n.public_ips))
+        print("node: {0}, image: {1}, status: {2}, ip: {3}".format(n.name,n.image,n.state,n.public_ips))
 
 def delete():
     if action_needed("delete"):
         node = getNode(MY_NODE_NAME)
-        driver.delete_node(node)
+        driver.destroy_node(node)
+    else: print("matching nodes not found, delete not needed")
 ## MAIN
 
 action = parse_input()

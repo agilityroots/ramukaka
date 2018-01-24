@@ -92,11 +92,16 @@ We use the following toolstack to implement `RAMUkaka`.
 | [Errbot](https://www.errbot.io) | The Bot framework, based on Python |
 | [spaCy](https://www.spacy.io) | For NLP and ML implementation within `RAMUkaka` |
 | [Apache libcloud](https://libcloud.readthedocs.io) | Python connectivity to any virtualization provider. |
+| `py.test` | Test Cases for the bot. |
+
+### Testing
+
 
 ## References
 
 Errbot
 
+1. Testing Errbot: http://errbot.io/en/latest/user_guide/plugin_development/testing.html
 1. Errbot: plugin development: http://errbot.io/en/latest/user_guide/plugin_development/development_environment.html
 1. Errbot Getting Started: http://errbot.io/en/latest/index.html
 1. http://errbot.io/en/latest/user_guide/setup.html
