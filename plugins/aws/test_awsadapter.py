@@ -2,6 +2,7 @@
 Test AWS Adapter.
 """
 import logging
+import pytest
 import os
 from libcloud.compute.base import NodeImage, Node
 from libcloud.compute.types import Provider
@@ -19,6 +20,7 @@ TEST_AMI_ID = 'ami-c24ef5bb'
 TEST_NODE_NAME = 'test_node'
 TEST_NODE_SIZE = 't2.micro'
 
+@pytest.mark.skip(reason="currently time-consuming")
 class TestAwsAdapter:
 
     def test_list_ami(self, awsadapter):

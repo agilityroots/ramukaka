@@ -11,6 +11,19 @@ CONFIG = {
     'keypair': os.environ['ERRBOT_AWS_KEYPAIR_NAME'],
 }
 
+@pytest.fixture
+def constants():
+    return {
+        "TEST_AMI_ID": 'ami-c24ef5bb',
+        "TEST_NODE_NAME": 'test_node',
+        "TEST_NODE_SIZE": 't2.micro'
+    }
+
+
+@pytest.fixture
+def config():
+    return CONFIG
+
 @pytest.fixture(scope='class')
 def driver():
     """

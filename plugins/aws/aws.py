@@ -33,12 +33,12 @@ class Aws(BotPlugin):
 
     @botcmd(split_args_with=' ')
     def aws_create_instance(self,msg,args):
-        node = self._create_node(name="my_node", img="ami-c24ef5bb", size="t2.micro")
+        node = AwsAdapter(self.config).create_node(name="my_node", img="ami-c24ef5bb", size="t2.micro")
         self.send(msg.frm,"{0} node".format(str(node)))
 
     @botcmd(split_args_with=' ')
     def aws_list_instances(self,msg,args):
-        nodes = self._list_instances()
+        nodes = AwsAdapter(self.config).list_instances()
         self.send(msg.frm,len(nodes) > 0 and str(nodes) or "no nodes found")
 
     @botcmd(split_args_with=' ')
