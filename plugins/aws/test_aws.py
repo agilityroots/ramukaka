@@ -29,4 +29,13 @@ class TestBotCommands:
         testbot.push_message('!aws list instances')
         msg = testbot.pop_message()
         logger.info(msg)
-        assert constants['TEST_NODE_NAME'] in msg
+        assert (
+            constants['TEST_NODE_NAME'] in msg or
+            "no nodes found" in msg
+        )
+    def test_aws_create_instance(self, testbot, config, constants):
+        self._setup(testbot, config)
+        testbot.push_message('!aws create instance')
+        msg = testbot.pop_message()
+        logger.info(msg)
+
