@@ -27,7 +27,7 @@ AWS_ACCOUNT_ID = os.environ['ERRBOT_AWS_ACCOUNT_ID']
 AWS_REGION = os.environ['ERRBOT_AWS_DEFAULT_REGION']
 MY_IMAGE_ID = "ami-c24ef5bb"
 MY_SIZE = "t2.medium"
-MY_NODE_NAME = "my_node"
+MY_NODE_NAME = "test_node"
 EC2Driver = get_driver(Provider.EC2)
 driver = EC2Driver(ACCESS_ID, SECRET_KEY,region=AWS_REGION)
 
@@ -92,7 +92,7 @@ def action_needed(action):
     nodes = driver.list_nodes()
     for n in nodes:
         print("node: {0}, image: {1}, ip: {2}".format(n.name,n.image,n.public_ips))
-        if ((n.name == MY_NODE_NAME) or (n.image.id == MY_IMAGE_ID)) and (n.state == 'running'):
+        if ((n.name == MY_NODE_NAME)):
             if (action == 'create'):
                 return False
             elif (action == 'delete'):
@@ -115,6 +115,7 @@ def list_instances():
 
 def delete():
     if action_needed("delete"):
+        print("delete node named " + MY_NODE_NAME)
         node = getNode(MY_NODE_NAME)
         driver.destroy_node(node)
     else: print("matching nodes not found, delete not needed")
