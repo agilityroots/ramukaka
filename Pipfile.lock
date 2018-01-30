@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "963356a59e2cf448fbfa0dedea622ab605d099235e80c93f517025f9e250fdf8"
+            "sha256": "31b7351bcd6877b7716d0717a14083dcd0609e12e8524939aa4a916e0279c7aa"
         },
         "host-environment-markers": {
             "implementation_name": "cpython",
@@ -31,6 +31,9 @@
         ]
     },
     "default": {
+        "4547064": {
+            "file": "https://github.com/explosion/spacy-models/releases/download/en_core_web_lg-2.0.0/en_core_web_lg-2.0.0.tar.gz"
+        },
         "ansi": {
             "hashes": [
                 "sha256:ef1eff1d52ee5db71e0954e515c32ec0a65933326c8bf887f698eebfc021c61b"
@@ -70,7 +73,7 @@
                 "sha256:4ba998e881f285c1d1b73f5b6e3766539b4e162320f9589334400c5ddc35198c",
                 "sha256:31f235852f88edc1558d428d890663c49eb4514ffec9f3650e7f3c9e4a12e36f"
             ],
-            "markers": "python_version == '2.7'",
+            "markers": "python_version < '3.4'",
             "version": "==1.4"
         },
         "beautifulsoup4": {

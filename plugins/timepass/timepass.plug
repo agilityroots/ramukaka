@@ -1,9 +1,0 @@
-[Core]
-module = timepass
-name = timepass
-
-[Documentation]
-description = Plugin for adding timepass functionality.
-
-[Python]
-version = 3

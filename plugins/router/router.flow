@@ -1,0 +1,9 @@
+[Core]
+Name = router_flows
+Module = router_flows.py
+
+[Documentation]
+Description = Usage of Errbot flows to route commands.
+
+[Python]
+Version = 3

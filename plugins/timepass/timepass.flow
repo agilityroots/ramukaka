@@ -1,9 +1,0 @@
-[Core]
-Name = timepass_flows
-Module = timepass_flows.py
-
-[Documentation]
-Description = Example of flows with re_botcmd
-
-[Python]
-Version = 3

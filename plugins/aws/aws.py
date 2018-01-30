@@ -67,4 +67,4 @@ class Aws(BotPlugin):
         for img in imgs:
             retVal += """id: `{0}`, name: `{1}`\n""".format(img.id,img.name)
 
-        self.send(msg.frm,retVal)
+        self.send(msg.frm, retVal)

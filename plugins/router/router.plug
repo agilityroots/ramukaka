@@ -1,0 +1,10 @@
+[Core]
+module = router
+name = router
+DependsOn = aws
+
+[Documentation]
+description = Plugin for routing commands to appropriate plugin.
+
+[Python]
+version = 3
